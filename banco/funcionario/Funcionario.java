@@ -1,18 +1,37 @@
 package funcionario;
 
-public class Funcionario {
-    int id;
-    String nome;
-    String role;
+import java.util.Objects;
 
-    public Funcionario(int id, String nome, String role) {
+public abstract class Funcionario {
+    protected int id;
+    protected String nome;
+    protected String role;
+
+    protected Funcionario(int id, String nome, String role) {
+        setId(id);
+        setNome(nome);
+        setRole(role);
+    }
+
+    private void setId(int id) {
         this.id = id;
-        this.nome = nome;
-        this.role = role;
     }
 
-    public double estorno(int id, double valor) {
-        System.out.printf(String.format("Estorno de %.2f efetuado para %d%nPelo funcionario %s%n%n", valor, id, this.nome));
-        return valor;
+    private void setNome(String nome) {
+        this.nome = nome.toLowerCase();
     }
+
+    private void setRole(String role) {
+        String[] roles = {"admin", "user"};
+        for (int i = 0; i < roles.length; i++) {
+            if (Objects.equals(roles[i], role)){
+                this.role = role;
+            }
+        }
+    }
+
+    public abstract  String getRole();
+
+    public abstract boolean login(String nome);
+
 }
