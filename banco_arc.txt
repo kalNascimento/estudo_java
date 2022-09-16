@@ -1,0 +1,17 @@
+@startuml
+
+class Main {
+}
+
+class Funcionario {
+  public estorno()
+}
+
+class Usuario {
+  public depositar()
+  public transferir()
+  public receberDinheiro()
+  public consultarSaldo()
+}
+
+@enduml
