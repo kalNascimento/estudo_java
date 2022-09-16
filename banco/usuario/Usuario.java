@@ -1,37 +1,51 @@
 package usuario;
 
+import sistema.Sistema;
+
 public class Usuario {
     private String nome;
+    private String cpf;
     private double saldo;
-    //private int id;
 
-    public Usuario(int id, String nome, double saldo) {
-        //this.id = id;
+    public Usuario(String nome, String cpf) {
         this.nome = nome;
-        this.saldo = saldo;
+        this.cpf = cpf;
+        this.saldo = 0;
+    }
+
+    private void setSaldo(double saldo) {
+        if ( saldo > 0) {
+            this.saldo = saldo;
+        }
+        if ( saldo <= 0 ) {
+            this.saldo = this.saldo + 0;
+        }
+    }
+
+    public double getSaldo() {
+        return this.saldo;
     }
 
     public void deposito(double valor) {
-        this.saldo = this.saldo + valor;
-        System.out.printf(String.format("deposito de: %.2f, realizado com sucesso%n%n", valor));
+        setSaldo(valor);
     }
 
-    public void transferencia(double valor, int id) {
+    public String transferencia(double valor, int id) {
         if (saldo > valor) {
-            System.out.printf(String.format("Cliente: %s%nTransferiu: %.2f%nPara: %d%n%n", this.nome, valor, id));
-            this.saldo = this.saldo - valor;
+            saldo = getSaldo();
+            saldo = saldo - valor;
+            setSaldo(saldo);
+            Sistema.storage(id, valor);
+            
+            return String.format("Cliente: %s%nTransferiu: %.2f%nPara: %d%n%n", this.nome, valor, id);
         }
-        if (saldo < valor) {
-            System.out.println("Saldo insuficiente\n");
-        }
+
+        return "Saldo insuficiente\n";
     }
 
-    public void receberDinheiro(double valor) {
-        this.saldo = this.saldo + valor;
-        System.out.println(String.format("Você recebeu %.0f%n%n", valor));
-    }
-
-    public void consultarSaldo() {
-        System.out.printf(String.format("Seu saldo é de: %.2f%n%n", this.saldo));
+    public String receberDinheiro(double valor) {
+        saldo = getSaldo() + valor;
+        setSaldo(saldo);
+        return String.format("Você recebeu %.0f%n%n", valor);
     }
 }

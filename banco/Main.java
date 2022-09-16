@@ -1,20 +1,18 @@
+import funcionario.Admin;
 import funcionario.Funcionario;
 import usuario.Usuario;
+import sistema.Sistema;
 
 
 public class  Main {
 
     public static void main(String[] args) {
-        Usuario kalebe = new Usuario(1, "Kalebe", 1000);
-        Funcionario jose = new Funcionario(1, "José", "admin");
+        Usuario kalebe = new Usuario("Kalebe", "44695439813");
+        Funcionario jose = new Admin(1, "José", "admin");
+        int i = 0;
 
-        kalebe.consultarSaldo();
-        kalebe.deposito(200);
-        kalebe.consultarSaldo();
-        kalebe.transferencia(100, 2);
-        kalebe.consultarSaldo();
-
-        kalebe.receberDinheiro(jose.estorno(1, 200));
-        kalebe.consultarSaldo();
+        kalebe.deposito(100000);
+        kalebe.transferencia(200.10, 55);
+        System.out.println(Sistema.retorno(55));
     }
 }
